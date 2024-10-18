@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
     res.type('html').send(html);
@@ -58,7 +58,7 @@ const html = `
   </head>
   <body>
     <section>
-      Hello from Krunal! You Are Live.
+      Hello from Krunal! You Are Live. For Docker.
     </section>
   </body>
 </html>
