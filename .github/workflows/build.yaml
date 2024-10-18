@@ -1,35 +1,31 @@
-# name: Deploy to Render
+name: Node.js CI/CD Pipeline
 
-# on:
-#   push:
-#     branches:
-#       - main # Triggers deployment on pushes to the main branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-# jobs:
-#   deploy:
-#     name: Deploy
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-#       - name: Setup Node.js
-#         uses: actions/setup-node@v2
-#         with:
-#           node-version: "18.x" # Match the Node.js version you're using in Render
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-#       - name: Install dependencies
-#         run: npm install
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
 
-#       - name: Trigger Render Deployment
-#         env:
-#           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-#           RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
-#         run: |
-#           echo "Triggering deployment..."
-#           curl -X POST \
-#             -H "Authorization: Bearer $RENDER_API_KEY" \
-#             -H "Content-Type: application/json" \
-#             https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys
+      - name: Install dependencies
+        run: npm install
 
-#           echo "Deployment triggered for service ID: $RENDER_SERVICE_ID"
+      - name: Build Docker image
+        run: docker build -t node-api-docker .
+
+    # - name: Push to Docker Hub (optional)
+    #   # Add steps to push the Docker image to a Docker registry if needed
