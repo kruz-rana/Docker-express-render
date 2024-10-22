@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/kruz-rana/Docker-express-render/issues"
   },
-  "homepage": "https://github.com/kruz-rana/Docker-express-render#readme"
+  "homepage": "https://github.com/kruz-rana/Docker-express-render#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
 }
