@@ -3,11 +3,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-    res.type('html').send(html);
+  res.type('html').send(html);
 })
 
 const server = app.listen(port, () => {
-    console.log(`Web sevices listening at http://localhost:${port}`);
+  console.log(`Web sevices listening at http://localhost:${port}`);
 });
 
 server.keepAliveTimeout = 120 * 1000;

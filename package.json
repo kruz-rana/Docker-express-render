@@ -4,8 +4,7 @@
   "description": "Render deployement with docker image",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -17,8 +16,5 @@
   "bugs": {
     "url": "https://github.com/kruz-rana/Docker-express-render/issues"
   },
-  "homepage": "https://github.com/kruz-rana/Docker-express-render#readme",
-  "dependencies": {
-    "express": "^4.21.1"
-  }
+  "homepage": "https://github.com/kruz-rana/Docker-express-render#readme"
 }

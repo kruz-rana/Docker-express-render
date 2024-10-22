@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: node-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    buildCommand: docker build -t node-api .
+    startCommand: docker run -p 3000:3000 node-api
+    envVars:
+      - key: PORT
+        value: 3000
