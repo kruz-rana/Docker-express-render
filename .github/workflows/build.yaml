@@ -5,29 +5,40 @@ on:
     branches:
       - main
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
 
-      - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+#       - name: Log in to Docker Hub
+#         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/node-api-docker .
+#       - name: Build Docker image
+#         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/node-api-docker .
 
-      - name: Push Docker image to Docker Hub
-        run: push ${{ secrets.DOCKER_USERNAME }}/node-api-docker
+#       - name: Push Docker image to Docker Hub
+#         run: push ${{ secrets.DOCKER_USERNAME }}/node-api-docker
 
-      - name: Deploy to Render
-        env:
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
-        run: |
-          curl -X POST \
-          -H 'Accept: application/json' \
-          -H 'Authorization: Bearer $RENDER_API_KEY' \
-          https://api.render.com/v1/services/RENDER_SERVICE_ID/deploys
+#       - name: Deploy to Render
+#         env:
+#           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+#           RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+#         run: |
+#           curl -X POST \
+#           -H 'Accept: application/json' \
+#           -H 'Authorization: Bearer $RENDER_API_KEY' \
+#           https://api.render.com/v1/services/RENDER_SERVICE_ID/deploys
+
+deploy:
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Deploy to Render
+      env:
+        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+      run: |
+        curl -X POST https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys \
+          -H "Authorization: Bearer $RENDER_API_KEY"
