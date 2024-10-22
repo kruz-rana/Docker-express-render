@@ -5,7 +5,18 @@ on:
     branches:
       - main
 
-# jobs:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Render
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          curl -X POST https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys \
+            -H "Authorization: Bearer $RENDER_API_KEY"
+
 #   build:
 #     runs-on: ubuntu-latest
 
@@ -32,13 +43,3 @@ on:
 #           -H 'Authorization: Bearer $RENDER_API_KEY' \
 #           https://api.render.com/v1/services/RENDER_SERVICE_ID/deploys
 
-deploy:
-  runs-on: ubuntu-latest
-
-  steps:
-    - name: Deploy to Render
-      env:
-        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-      run: |
-        curl -X POST https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys \
-          -H "Authorization: Bearer $RENDER_API_KEY"
